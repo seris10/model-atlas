@@ -1,0 +1,14 @@
+{
+  "name": "model-atlas",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Interactive thermal curves, membrane recordings, and cortical ATP models",
+  "scripts": {
+    "build": "python3 tools/build_site.py ../model-atlas-build",
+    "dev": "wrangler pages dev --port 8791",
+    "db:init": "wrangler d1 execute model-atlas-local --local --file backend/schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.0"
+  }
+}

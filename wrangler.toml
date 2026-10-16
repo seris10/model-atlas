@@ -1,0 +1,8 @@
+name = "model-atlas"
+pages_build_output_dir = "../model-atlas-build"
+compatibility_date = "2026-10-15"
+
+[[d1_databases]]
+binding = "ATLAS_SESSIONS"
+database_name = "model-atlas-local"
+database_id = "00000000-0000-0000-0000-000000000000"

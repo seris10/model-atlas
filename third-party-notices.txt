@@ -1,0 +1,11 @@
+Model Atlas data and reference terms
+
+The thermal data and the thermal equations in visualization/model.js derive from rTPC and thermal-response, licensed GPL-3.0-or-later. The applicable GPL text is in licenses/gpl-3.0.txt. Cite Padfield et al. (2016), doi:10.1111/ele.12545, and rTPC.
+
+Recorded voltage and current samples derive from Allen Institute for Brain Science (2021), Patch-seq recordings from mouse visual cortex, DANDI 000020 version 0.210913.1639, https://doi.org/10.48324/dandi.000020/0.210913.1639, CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/). Display sampling retains extrema and command transitions; voltage derivatives are computed from original samples. Source asset identifiers and SHA-256 values are embedded in visualization/data.js.
+
+Cortical ATP coefficients and reference values derive from Howarth, Gleeson and Attwell (2012), doi:10.1038/jcbfm.2012.35. The source workbook permits investigation of parameter changes and adaptation to other regions or cell types with acknowledgment. Its original XLS is not redistributed.
+
+The Hodgkin-Huxley model follows Hodgkin and Huxley (1952), doi:10.1113/jphysiol.1952.sp004764. Temperature scaling and synaptic-resource extensions are identified in visualization/research.json.
+
+No additional reuse license is granted for the remaining atlas interface and backend. Code and data from other projects retain their own terms.

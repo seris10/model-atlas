@@ -1,0 +1,54 @@
+{
+  "reviewed_at": "2026-10-14",
+  "method": "Consensus searches and fetched paper records; bibliographic and implementation checks against PubMed, original-paper PDF and NEURON hh.mod.",
+  "papers": [
+    {
+      "authors": "Kingsolver, Higgins & Augustine", "year": 2015,
+      "title": "Fluctuating temperatures and ectotherm growth: distinguishing non-linear and time-dependent effects",
+      "journal": "Journal of Experimental Biology", "doi": "10.1242/jeb.120733", "pmid": "25987738",
+      "pubmed": "https://pubmed.ncbi.nlm.nih.gov/25987738/",
+      "consensus": "https://consensus.app/papers/fluctuating-temperatures-and-ectotherm-growth-kingsolver-higgins/80ca2657425d502297c2eac7e45d874e/?utm_source=chatgpt",
+      "citation_count_at_review": 185, "scenes": ["thermal"],
+      "supports": "Nonlinear rate curves can yield different time-averaged responses at equal mean temperature.",
+      "limit": "The study concerns Manduca growth, not Chlorella oxygen flux. Exposure duration and thermal history can invalidate instantaneous averaging. The atlas demonstrates the mathematical effect conditional on its fitted rate curve."
+    },
+    {
+      "authors": "Hodgkin & Huxley", "year": 1952,
+      "title": "A quantitative description of membrane current and its application to conduction and excitation in nerve",
+      "journal": "Journal of Physiology", "doi": "10.1113/jphysiol.1952.sp004764", "pmid": "12991237",
+      "pubmed": "https://pubmed.ncbi.nlm.nih.gov/12991237/",
+      "consensus": "https://consensus.app/papers/a-quantitative-description-of-membrane-current-and-its-hodgkin-huxley/455037f923405f5390c7441952ec4b88/?utm_source=chatgpt",
+      "citation_count_at_review": 18920, "scenes": ["membrane"],
+      "implementation_reference": "https://github.com/neuronsimulator/nrn/blob/master/src/nrnoc/hh.mod",
+      "supports": "Voltage-dependent channel gating, sodium inactivation, recovery and the classic temperature factor 3^((T-6.3)/10).",
+      "limit": "A spatially uniform squid-axon model. Temperature changes gating rates only; ion concentrations, reversal potentials and maximal conductances stay fixed. It does not fit the recorded mouse cells."
+    },
+    {
+      "authors": "Tsodyks & Markram", "year": 1997,
+      "title": "The neural code between neocortical pyramidal neurons depends on neurotransmitter release probability",
+      "journal": "PNAS", "doi": "10.1073/pnas.94.2.719", "pmid": "9012851",
+      "pubmed": "https://pubmed.ncbi.nlm.nih.gov/9012851/",
+      "full_text": "https://www.cns.nyu.edu/csh/csh04/Articles/Tsodyks-Markram-97.pdf",
+      "consensus": "https://consensus.app/papers/the-neural-code-between-neocortical-pyramidal-neurons-tsodyks-markram/651903c31cb752e2a737aabdf7b0a12a/?utm_source=chatgpt",
+      "citation_count_at_review": 1763, "scenes": ["neural"],
+      "supports": "Release-dependent resource depletion, exponential recovery and saturation of mean synaptic output with firing rate.",
+      "limit": "The atlas uses a reduced one-pool mean-field approximation, R′=(1−R)/τ−U f R. Coupling U×R to the Howarth per-event ATP accounting is an illustrative extension, not an experimentally validated whole-cortex ATP trajectory."
+    },
+    {
+      "authors": "Fuhrmann, Cowan, Segev, Tsodyks & Stricker", "year": 2004,
+      "title": "Multiple mechanisms govern the dynamics of depression at neocortical synapses of young rats",
+      "journal": "Journal of Physiology", "doi": "10.1113/jphysiol.2003.058107", "pmid": "15020700",
+      "pubmed": "https://pubmed.ncbi.nlm.nih.gov/15020700/",
+      "consensus": "https://consensus.app/papers/multiple-mechanisms-govern-the-dynamics-of-depression-at-fuhrmann-cowan/3acd0660edda5c0d8c870ad9715ecfd9/?utm_source=chatgpt",
+      "citation_count_at_review": 68, "scenes": ["neural"],
+      "supports": "An explicit limit on the simplified depletion model: real cortical synapses also exhibit release-independent depression and activity-dependent recovery.",
+      "limit": "These mechanisms are not represented by the atlas's fixed recovery time."
+    }
+  ],
+  "extensions": [
+    {"id":"thermal-cycle", "scene":"thermal", "control":"thermal-amplitude", "python":"thermal_response.derived.cycle_average", "calculation":"Uniform time average over mean+amplitude*sin(phase)", "checks":"Convex/concave/linear known answers and independent SciPy adaptive quadrature versus browser periodic quadrature."},
+    {"id":"hh-temperature", "scene":"membrane", "control":"hh-temperature", "python":"membrane_report.hh.simulate_hh", "calculation":"Multiply gate kinetics by 3^((T-6.3)/10)", "checks":"Gate-derivative factor identity and browser RK4 versus DOP853 voltage/gate trajectories."},
+    {"id":"hh-pulse-pair", "scene":"membrane", "control":"hh-protocol", "python":"membrane_report.hh.simulate_hh", "calculation":"Two 2 ms pulses separated by a 4–30 ms onset interval", "checks":"Exact current transitions, 1 versus 2 spike recovery cases, sodium block and independent integrators."},
+    {"id":"vesicle-depletion", "scene":"neural", "control":"depletion-toggle", "python":"neural_budget.synapse.resource_state/depleted_budget", "calculation":"R′=(1−R)/τ−U*f*R; effective release U*R", "checks":"Analytic solution versus independent ODE, zero-firing recovery and per-component Python/browser ATP parity."}
+  ]
+}
